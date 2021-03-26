@@ -49,7 +49,7 @@ export const Form = styled.form<FormProps>`
     transition: background-color 0.2s;
 
     &:hover {
-      background: ${shade(0.2,'#04d361')}
+      background: ${shade(0.2, '#04d361')}
     }
 
   }
@@ -58,8 +58,6 @@ export const Form = styled.form<FormProps>`
 export const Repositories = styled.div`
   margin-top: 80px;
   max-width: 700px;
-
-
 
   a {
     background: #ffffff;

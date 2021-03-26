@@ -1,8 +1,13 @@
 import React, { useState, FormEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiChevronRight } from 'react-icons/fi';
-import { Title, Form, Repositories, Error } from './styles'
-import logoimg from '../../assets/logo.svg'
+import {
+  Title,
+  Form,
+  Repositories,
+  Error,
+} from './styles';
+import logoimg from '../../assets/logo.svg';
 import api from '../../services/api';
 
 interface Repository {
@@ -18,39 +23,38 @@ const Dashboard: React.FC = () => {
   const [newRepo, setNewRepo] = useState('');
   const [inputError, setInputError] = useState('');
   const [repositories, setRepositories] = useState<Repository[]>(() => {
-    const storageRepositories = localStorage.getItem('@GitHubExplorer:repositories')
+    const storageRepositories = localStorage.getItem('@GitHubExplorer:repositories');
 
-    if(storageRepositories){
+    if (storageRepositories) {
       return JSON.parse(storageRepositories);
-    }else{
-      return [];
     }
+    return [];
   });
 
   useEffect(() => {
-    localStorage.setItem('@GitHubExplorer:repositories', JSON.stringify(repositories))
-  }, [repositories])
+    localStorage.setItem('@GitHubExplorer:repositories', JSON.stringify(repositories));
+  }, [repositories]);
 
   async function handleAddRepository(
-    event: FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>,
   ): Promise<void> {
     event.preventDefault();
 
-    if(!newRepo){
-      setInputError('Digite autor/nome do repositório.')
+    if (!newRepo) {
+      setInputError('Digite autor/nome do repositório.');
       return;
     }
 
-    try{
-      const response = await api.get<Repository>(`repos/${newRepo}`)
+    try {
+      const response = await api.get<Repository>(`repos/${newRepo}`);
 
       const repository = response.data;
 
       setRepositories([...repositories, repository]);
       setNewRepo('');
       setInputError('');
-    }catch(error){
-      setInputError('Erro na busca por esse repositório.')
+    } catch (error) {
+      setInputError('Erro na busca por esse repositório.');
     }
   }
 
@@ -72,7 +76,7 @@ const Dashboard: React.FC = () => {
 
       <Repositories>
 
-        {repositories.map(repository => (
+        {repositories.map((repository) => (
           <Link to={`/repository/${repository.full_name}`} key={repository.full_name} href="teste">
             <img
               src={repository.owner.avatar_url}
@@ -88,7 +92,7 @@ const Dashboard: React.FC = () => {
         ))}
       </Repositories>
     </>
-  )
+  );
 };
 
 export default Dashboard;
