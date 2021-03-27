@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Github Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Study project, using the public github API, to search and add repositories to local storage, with the option to view the details of the repository.
 
 ## Available Scripts
 
